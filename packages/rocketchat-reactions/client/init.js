@@ -11,15 +11,13 @@ Template.room.events({
 			return false;
 		}
 
-		RocketChat.EmojiPicker.open(event.currentTarget, (emoji) => {
-			Meteor.call('setReaction', `:${ emoji }:`, data._arguments[1]._id);
-		});
+		Meteor.call('setReaction', `:thumbsup:`, data._arguments[1]._id);
 	},
 
 	'click .reactions > li:not(.add-reaction)'(event) {
 		event.preventDefault();
 		const data = Blaze.getData(event.currentTarget);
-		Meteor.call('setReaction', $(event.currentTarget).data('emoji'), data._arguments[1]._id, () => {
+		Meteor.call('setReaction', `:thumbsup:`, data._arguments[1]._id, () => {
 			RocketChat.tooltip.hide();
 		});
 	},
@@ -49,9 +47,7 @@ Meteor.startup(function() {
 
 			event.stopPropagation();
 
-			RocketChat.EmojiPicker.open(event.currentTarget, (emoji) => {
-				Meteor.call('setReaction', `:${ emoji }:`, data._arguments[1]._id);
-			});
+			Meteor.call('setReaction', `:thumbsup:`, data._arguments[1]._id);
 		},
 		condition(message) {
 			const room = RocketChat.models.Rooms.findOne({ _id: message.rid });
